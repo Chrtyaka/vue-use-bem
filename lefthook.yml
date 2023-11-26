@@ -1,0 +1,13 @@
+commit-msg:
+  commands:
+    'commitlint':
+      run: npx commitlint --edit {1}
+
+pre-commit:
+  commands:
+    prettier:
+      glob: '*.{js,ts,vue,scss,json}'
+      run: npm run format:fix {staged_files} && git add {staged_files}
+    eslint:
+      glob: '*.{js,ts,vue}'
+      run: npm run lint {staged_files}
