@@ -1,43 +1,35 @@
-interface BemMods {
-  [key: string]: unknown;
-}
+import { generateModifiersFromObject } from './bem';
+import { BemMods, BemModsObject } from './types';
 
-export function useBem(block: string) {
+export function useBem(block: string, namespace?: string) {
   if (typeof block !== 'string' || block.length === 0) {
     throw new Error('[vue-use-bem]: Block is not specified');
   }
 
-  const generateMods = (element: string, mods: BemMods) => {
-    return Object.entries(mods).map(([key, value]) => {
-      if (typeof value === 'boolean' && value) {
-        return `${block}__${element}--${key}`;
-      }
+  const b = () => (namespace ? `${namespace}-${block}` : block);
 
-      if (typeof value === 'string' && value.length) {
-        return `${block}__${element}--${key}-${value}`;
-      }
+  const e = (element: string) => `${b()}__${element}`;
 
-      if (typeof value === 'number') {
-        return `${block}__${element}--${key}-${value}`;
-      }
-
-      if (typeof value === 'object') {
-        return `${block}__${element}--${key}`;
-      }
-    });
+  const bm = (modifier: string) => {
+    return `${b()}--${modifier}`;
   };
 
-  const bem = (element: string, mods?: BemMods) => {
-    const getElement = () => `${block}__${element}`;
+  const em = (element: string, modifier: BemMods) => {
+    return `${e(element)}--${modifier}`;
+  };
 
-    if (typeof mods === 'undefined') {
-      return getElement();
-    }
+  // Empty string element type is for cases where bem function applies to block
+  const bem = (element: string | '', mods: BemModsObject) => {
+    const resultEl = element && element !== '' ? e(element) : b();
 
-    return [getElement(), ...generateMods(element, mods)].join(' ').trim();
+    return generateModifiersFromObject(resultEl, mods);
   };
 
   return {
+    b,
+    bm,
+    e,
+    em,
     bem,
   };
 }
