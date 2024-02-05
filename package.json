@@ -1,28 +1,37 @@
 {
   "name": "vue-use-bem",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A simple utility for generate BEM classes",
   "scripts": {
     "lint": "eslint --ignore-path .gitignore",
     "lint:fix": "eslint --ignore-path .gitignore --fix",
     "format": "prettier",
-    "format:fix": "prettier --write"
+    "format:fix": "prettier --write",
+    "build": "rollup -c"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "vue",
+    "bem"
+  ],
+  "author": "Slava Cherkesov",
   "license": "MIT",
+  "type": "module",
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
+    "@rollup/plugin-typescript": "^11.1.6",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
     "eslint": "^8.54.0",
     "lefthook": "^1.5.3",
     "prettier": "^3.1.0",
     "rollup": "^4.6.0",
+    "rollup-plugin-dts": "^6.1.0",
+    "tslib": "^2.6.2",
     "typescript": "^5.3.2",
-    "vitest": "^0.34.6",
-    "vue-demi": "^0.14.6"
+    "vitest": "^0.34.6"
+  },
+  "dependencies": {
+    "vue-demi": "^0.14.7"
   }
 }
