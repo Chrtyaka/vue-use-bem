@@ -1,5 +1,6 @@
 import { generateModifiersFromObject } from './bem';
 import { BemMods, BemModsObject } from './types';
+import { computed } from 'vue-demi';
 
 export function useBem(block: string, namespace?: string) {
   if (typeof block !== 'string' || block.length === 0) {
@@ -22,7 +23,7 @@ export function useBem(block: string, namespace?: string) {
   const bem = (element: string | '', mods: BemModsObject) => {
     const resultEl = element && element !== '' ? e(element) : b();
 
-    return generateModifiersFromObject(resultEl, mods);
+    return computed(() => generateModifiersFromObject(resultEl, mods));
   };
 
   return {
