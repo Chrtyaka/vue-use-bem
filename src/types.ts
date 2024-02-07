@@ -5,3 +5,8 @@ export interface BemModsObject {
 }
 
 export type BemMods = string | number | BemModsObject;
+
+export interface BemPluginOptions {
+  methodName?: string;
+  namespace?: string;
+}
