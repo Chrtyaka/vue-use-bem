@@ -41,5 +41,33 @@ describe('use-bem', () => {
 
       expect(composable.b()).toEqual('el-block');
     });
+
+    describe('test basic functions', () => {
+      it('test block', () => {
+        const [{ b }] = withSetup(() => useBem('block'));
+
+        expect(b()).toEqual('block');
+      });
+
+      it('test block--modificator', () => {
+        const [{ bm }] = withSetup(() => useBem('block'));
+
+        expect(bm('modificator')).toEqual('block--modificator');
+      });
+
+      it('test block__element', () => {
+        const [{ e }] = withSetup(() => useBem('block'));
+
+        expect(e('element')).toEqual('block__element');
+      });
+
+      it('test block-element--modificator', () => {
+        const [{ em }] = withSetup(() => useBem('block'));
+
+        expect(em('element', 'modificator')).toBe(
+          'block__element--modificator',
+        );
+      });
+    });
   });
 });

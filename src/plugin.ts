@@ -9,19 +9,27 @@ import { DELIMITERS_INJECTION_KEY, NAMESPACE_INJECTION_KEY } from './use-bem';
 
 export const VueBem = {
   install(app: App, options?: BemPluginOptions) {
-    if (options?.namespace) {
+    if (!options) {
+      app.provide(DELIMITERS_INJECTION_KEY, DEFAULT_DELIMITERS);
+      app.config.globalProperties['b'] = (
+        element: string,
+        mods: BemModsObject,
+      ) => generateModifiersFromObject(element, mods, delimiters);
+
+      return;
+    }
+
+    if (options.namespace) {
       app.provide(NAMESPACE_INJECTION_KEY, options.namespace);
     }
 
-    const delimiters = options?.delimiters
+    const delimiters = options.delimiters
       ? { ...DEFAULT_DELIMITERS, ...options.delimiters }
       : DEFAULT_DELIMITERS;
 
-    if (options?.delimiters) {
-      app.provide(DELIMITERS_INJECTION_KEY, delimiters);
-    }
+    app.provide(DELIMITERS_INJECTION_KEY, delimiters);
 
-    const bemMethod = options?.methodName ?? 'b';
+    const bemMethod = options.methodName ?? 'b';
 
     app.config.globalProperties[bemMethod] = (
       element: string,
