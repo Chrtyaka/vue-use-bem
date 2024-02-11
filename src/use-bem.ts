@@ -1,12 +1,16 @@
 import { generateModifiersFromObject } from './bem';
-import { BemMods, BemModsObject } from './types';
+import { BemDelimiters, BemMods, BemModsObject } from './types';
 import { computed, inject, getCurrentInstance, unref } from 'vue-demi';
 import type { Ref } from 'vue-demi';
 
 import type { InjectionKey } from 'vue-demi';
+import { DEFAULT_DELIMITERS } from './config';
 
 export const NAMESPACE_INJECTION_KEY: InjectionKey<string | undefined> =
   Symbol('bemNamespace');
+
+export const DELIMITERS_INJECTION_KEY: InjectionKey<BemDelimiters> =
+  Symbol('bemDelimiters');
 
 function useNamespace(namespaceOverrides?: Ref<string>) {
   const injectedNamespace = getCurrentInstance()
@@ -20,6 +24,16 @@ function useNamespace(namespaceOverrides?: Ref<string>) {
   return { namespace };
 }
 
+function useDelimiters() {
+  const injectedDelimiters = getCurrentInstance()
+    ? inject(DELIMITERS_INJECTION_KEY)
+    : undefined;
+
+  const delimiters = injectedDelimiters || DEFAULT_DELIMITERS;
+
+  return { delimiters };
+}
+
 export function useBem(block: string, namespaceOverrides?: Ref<string>) {
   if (typeof block !== 'string' || block.length === 0) {
     throw new Error('[vue-use-bem]: Block is not specified');
@@ -27,23 +41,28 @@ export function useBem(block: string, namespaceOverrides?: Ref<string>) {
 
   const { namespace } = useNamespace(namespaceOverrides);
 
-  const b = () => (namespace ? `${namespace}-${block}` : block);
+  const { delimiters } = useDelimiters();
 
-  const e = (element: string) => `${b()}__${element}`;
+  const b = () =>
+    namespace ? `${namespace}${delimiters.namespace}${block}` : block;
+
+  const e = (element: string) => `${b()}${delimiters.element}${element}`;
 
   const bm = (modifier: string) => {
-    return `${b()}--${modifier}`;
+    return `${b()}${delimiters.modificator}${modifier}`;
   };
 
   const em = (element: string, modifier: BemMods) => {
-    return `${e(element)}--${modifier}`;
+    return `${e(element)}${delimiters.modificator}${modifier}`;
   };
 
   // Empty string element type is for cases where bem function applies to block
   const bem = (element: string | '', mods: BemModsObject) => {
     const resultEl = element && element !== '' ? e(element) : b();
 
-    return computed(() => generateModifiersFromObject(resultEl, mods));
+    return computed(() =>
+      generateModifiersFromObject(resultEl, mods, delimiters),
+    );
   };
 
   return {
