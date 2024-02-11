@@ -4,7 +4,7 @@ import { computed, inject, getCurrentInstance, unref } from 'vue-demi';
 import type { Ref } from 'vue-demi';
 
 import type { InjectionKey } from 'vue-demi';
-import { DEFAULT_DELIMITERS } from './config';
+import { DEFAULT_DELIMITERS, ERROR_MESSAGES } from './constants';
 
 export const NAMESPACE_INJECTION_KEY: InjectionKey<string | undefined> =
   Symbol('bemNamespace');
@@ -36,7 +36,7 @@ function useDelimiters() {
 
 export function useBem(block: string, namespaceOverrides?: Ref<string>) {
   if (typeof block !== 'string' || block.length === 0) {
-    throw new Error('[vue-use-bem]: Block is not specified');
+    throw new Error(ERROR_MESSAGES.emptyBlock);
   }
 
   const { namespace } = useNamespace(namespaceOverrides);
@@ -44,7 +44,9 @@ export function useBem(block: string, namespaceOverrides?: Ref<string>) {
   const { delimiters } = useDelimiters();
 
   const b = () =>
-    namespace ? `${namespace}${delimiters.namespace}${block}` : block;
+    namespace.value
+      ? `${namespace.value}${delimiters.namespace}${block}`
+      : block;
 
   const e = (element: string) => `${b()}${delimiters.element}${element}`;
 
