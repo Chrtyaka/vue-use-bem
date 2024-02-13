@@ -1,5 +1,5 @@
 import { generateModifiersFromObject } from './bem';
-import { BemDelimiters, BemMods, BemModsObject } from './types';
+import { BemDelimiters, BemModBasic, BemModifiers } from './types';
 import { computed, inject, getCurrentInstance, unref } from 'vue-demi';
 import type { Ref } from 'vue-demi';
 
@@ -48,19 +48,19 @@ export function useBem(block: string, namespaceOverrides?: Ref<string>) {
       ? `${namespace.value}${delimiters.namespace}${block}`
       : block;
 
-  const e = (element: string) => `${b()}${delimiters.element}${element}`;
+  const e = (element: BemModBasic) => `${b()}${delimiters.element}${element}`;
 
-  const bm = (modifier: string) => {
+  const bm = (modifier: BemModBasic) => {
     return `${b()}${delimiters.modificator}${modifier}`;
   };
 
-  const em = (element: string, modifier: BemMods) => {
+  const em = (element: string, modifier: BemModBasic) => {
     return `${e(element)}${delimiters.modificator}${modifier}`;
   };
 
   // Empty string element type is for cases where bem function applies to block
-  const bem = (element: string | '', mods: BemModsObject) => {
-    const resultEl = element && element !== '' ? e(element) : b();
+  const bem = (element: string | '', mods: BemModifiers) => {
+    const resultEl = element !== '' ? e(element) : b();
 
     return computed(() =>
       generateModifiersFromObject(resultEl, mods, delimiters),
