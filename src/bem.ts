@@ -1,35 +1,40 @@
-import type { BemDelimiters, BemModsObject } from './types';
+import { ERROR_MESSAGES } from './constants';
+import type { BemDelimiters, BemModifiers } from './types';
+
+import { unref } from 'vue-demi';
 
 const EMPTY_SPACE = ' ';
 
 export function generateModifiersFromObject(
   element: string,
-  mods: BemModsObject,
+  mods: BemModifiers,
   delimiters: BemDelimiters,
 ) {
   let result = element;
 
   Object.entries(mods).forEach(([mod, value]) => {
-    switch (typeof value) {
+    const modValue = unref(value);
+
+    switch (typeof modValue) {
       case 'boolean':
-        result += value
+        result += modValue
           ? `${EMPTY_SPACE}${element}${delimiters.modificator}${mod}`
           : '';
         break;
       case 'string':
-        result += value.length
-          ? `${EMPTY_SPACE}${element}${delimiters.modificator}${mod}${delimiters.modificatorValue}${value}`
+        result += modValue.length
+          ? `${EMPTY_SPACE}${element}${delimiters.modificator}${mod}${delimiters.modificatorValue}${modValue}`
           : '';
         break;
       case 'number':
-        result += `${EMPTY_SPACE}${element}${delimiters.modificator}${mod}${delimiters.modificatorValue}${value}`;
+        result += `${EMPTY_SPACE}${element}${delimiters.modificator}${mod}${delimiters.modificatorValue}${modValue}`;
         break;
       default: {
         console.warn(
-          `[vue-bem-cn]: Invalid modificator value type: ${typeof value} for element ${element}`,
+          ERROR_MESSAGES.wrongModificatorType(element, typeof value),
         );
         // @ts-expect-error setup exhaustiveCheck
-        const exhaustiveCheck: never = typeof value;
+        const exhaustiveCheck: never = typeof modValue;
 
         return exhaustiveCheck;
       }
