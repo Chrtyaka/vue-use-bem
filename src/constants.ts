@@ -12,3 +12,5 @@ export const ERROR_MESSAGES = {
   wrongModificatorType: (element: string, value: unknown) =>
     `[vue-bem-cn]: Invalid modificator value type: ${typeof value} for element ${element}`,
 };
+
+export const BEM_METHOD_NAME = 'b';
