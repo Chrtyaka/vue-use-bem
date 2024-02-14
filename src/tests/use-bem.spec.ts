@@ -1,7 +1,7 @@
 import { ERROR_MESSAGES } from '../constants';
 import { useBem } from '../use-bem';
 import { describe, it, expect } from 'vitest';
-import { reactive, ref } from 'vue-demi';
+import { reactive, ref } from 'vue';
 import { withSetup } from './with-setup';
 
 describe('use-bem', () => {

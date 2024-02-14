@@ -1,4 +1,4 @@
-import { App } from 'vue-demi';
+import { App } from 'vue';
 import type { BemModsObject, BemPluginOptions } from './types';
 
 import { BEM_METHOD_NAME, DEFAULT_DELIMITERS } from './constants';

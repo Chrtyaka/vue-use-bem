@@ -1,5 +1,5 @@
-import type { App } from 'vue-demi';
-import { createApp } from 'vue-demi';
+import type { App } from 'vue';
+import { createApp } from 'vue';
 import { BemPluginOptions } from '../types';
 import { VueBem } from '../plugin';
 

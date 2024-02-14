@@ -1,4 +1,4 @@
-import { Ref, reactive } from 'vue-demi';
+import { Ref, reactive } from 'vue';
 
 type BemModValue = string | number | boolean;
 

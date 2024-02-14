@@ -1,7 +1,7 @@
 import { ERROR_MESSAGES } from './constants';
 import type { BemDelimiters, BemModifiers } from './types';
 
-import { unref } from 'vue-demi';
+import { unref } from 'vue';
 
 const EMPTY_SPACE = ' ';
 

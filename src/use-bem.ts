@@ -1,9 +1,9 @@
 import { generateModifiersFromObject } from './bem';
 import { BemDelimiters, BemModBasic, BemModifiers } from './types';
-import { computed, inject, getCurrentInstance, unref } from 'vue-demi';
-import type { Ref } from 'vue-demi';
+import { computed, inject, getCurrentInstance, unref } from 'vue';
+import type { Ref } from 'vue';
 
-import type { InjectionKey } from 'vue-demi';
+import type { InjectionKey } from 'vue';
 import { DEFAULT_DELIMITERS, ERROR_MESSAGES } from './constants';
 
 export const NAMESPACE_INJECTION_KEY: InjectionKey<string | undefined> =

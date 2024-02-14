@@ -15,7 +15,7 @@ export default [
       },
     ],
     plugins: [typescript()],
-    external: ['vue-demi'],
+    external: ['vue'],
   },
   {
     input: './index.ts',
