@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="300px" src="./docs/logo.webp">
+  <img width="300px" height="**300px**" src="./docs/logo.webp">
 </p>
 
 <p align="center">VueUseBem - Vue.js 3 BEM classes generator</p>
@@ -23,7 +23,9 @@ Button.vue
 
 ```vue
 <template>
-<button :class="[b(), bm(size)]"> <slot /> </button>
+  <button :class="[b(), bm(size)]"> 
+    <slot /> 
+  </button>
 </template>
 
 <script lang="ts" setup>
@@ -45,13 +47,15 @@ Page.vue
 
 <template>
   <div class="example">
-    <ui-button type="button" class="mix-any-class" size="large"> I am BEM button! </-button>
+    <ui-button type="button" class="mix-any-class" size="large"> 
+      I am BEM button! 
+    </ui-button>
   </div>
 </template>
 
 
 <script lang="ts" setup>
-  import Button from 'components/UI/Button.vue';
+  import UiButton from 'components/UI/Button.vue';
 </script>
 ```
 
