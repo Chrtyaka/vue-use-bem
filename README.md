@@ -17,7 +17,7 @@ Inspired by:
 - [vue-bem-cn](https://github.com/c01nd01r/vue-bem-cn/tree/master)
 - [element-plus](https://github.com/element-plus/element-plus/blob/dev/packages/hooks/use-namespace/index.ts)
 
-# Quick example
+# 🦄 Quick example
 
 Button.vue
 
@@ -70,4 +70,6 @@ It will compiles to
 </div>
 
 ```
+
+Refer to [documentation]() for more details.
 
