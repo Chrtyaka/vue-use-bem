@@ -7,8 +7,7 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Get started', link: '/get-started' },
+      { text: 'Guide', link: '/get-started' },
       { text: 'API', link: '/api' },
     ],
 
@@ -18,6 +17,7 @@ export default defineConfig({
         items: [
           { text: 'Get started', link: '/get-started' },
           { text: 'Configuration', link: '/configuration' },
+          { text: 'Composable', link: '/composable' },
         ],
       },
     ],

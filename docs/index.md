@@ -9,16 +9,16 @@ hero:
 
   actions:
     - theme: brand
-      text: Getting Started
-      link: /getting-started
+      text: Get started
+      link: /get-started
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: API
+      link: /api
 
 features:
-  - title: Vue 3 Composition API
+  - title: ❤️‍🔥 Vue 3 Composition API
     details: Provides composable for using in script setup
-  - title: Configurable
+  - title: 🦄 Configurable
     details: Configure settings, namespaces, delimiters etc.
 
 

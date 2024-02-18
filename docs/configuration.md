@@ -77,7 +77,6 @@ That's it :fire:
 ## BEM method name
 
 Via plugin install, package inject global [bem](./api.md#bem) method in Vue instance. 
-It provides seamless migration from [vue-bem-cn](https://github.com/c01nd01r/vue-bem-cn)
 
 You can customize method name as well via plugin options:
 
@@ -89,7 +88,8 @@ import App from './App.vue'
 
 const app = createApp(App)
 
-app.use(VueBem, { // [!code focus:3]
+app.use(VueBem, { // [!code focus:4]
+  injectGlobalMethod: true
   methodName: 'bem'
 })
 
