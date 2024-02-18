@@ -189,13 +189,18 @@ describe('use-bem', () => {
 
   describe('test install plugin', () => {
     it('should provide default values if plugin options no specified', () => {
-      const [, app] = withSetup(() => useBem('block'));
+      const [, app] = withSetup(() => useBem('block'), {
+        injectGlobalMethod: true,
+      });
 
       expect(app.config.globalProperties.b).toBeDefined();
     });
 
     it('should provide custom bem method', () => {
-      const [, app] = withSetup(() => useBem('block'), { methodName: 'bem' });
+      const [, app] = withSetup(() => useBem('block'), {
+        injectGlobalMethod: true,
+        methodName: 'bem',
+      });
 
       expect(app.config.globalProperties.bem).toBeDefined();
     });

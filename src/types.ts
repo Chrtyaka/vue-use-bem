@@ -2,6 +2,8 @@ import { Ref, reactive } from 'vue';
 
 type BemModValue = string | number | boolean;
 
+export type BemNamespaceOverrides = Ref<string> | string;
+
 export interface BemModsObject {
   [key: string]: BemModValue;
 }
@@ -25,6 +27,7 @@ export interface BemDelimiters {
 export type BemDelimitersCustom = Partial<BemDelimiters>;
 
 export interface BemPluginOptions {
+  injectGlobalMethod?: boolean;
   methodName?: string;
   namespace?: string;
   delimiters?: BemDelimitersCustom;

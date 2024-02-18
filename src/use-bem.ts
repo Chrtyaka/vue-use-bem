@@ -1,7 +1,11 @@
 import { generateModifiersFromObject } from './bem';
-import { BemDelimiters, BemModBasic, BemModifiers } from './types';
+import {
+  BemDelimiters,
+  BemModBasic,
+  BemModifiers,
+  BemNamespaceOverrides,
+} from './types';
 import { computed, inject, getCurrentInstance, unref } from 'vue';
-import type { Ref } from 'vue';
 
 import type { InjectionKey } from 'vue';
 import { DEFAULT_DELIMITERS, ERROR_MESSAGES } from './constants';
@@ -12,7 +16,7 @@ export const NAMESPACE_INJECTION_KEY: InjectionKey<string | undefined> =
 export const DELIMITERS_INJECTION_KEY: InjectionKey<BemDelimiters> =
   Symbol('bemDelimiters');
 
-function useNamespace(namespaceOverrides?: Ref<string>) {
+function useNamespace(namespaceOverrides?: BemNamespaceOverrides) {
   const injectedNamespace = getCurrentInstance()
     ? inject(NAMESPACE_INJECTION_KEY)
     : undefined;
@@ -34,7 +38,10 @@ function useDelimiters() {
   return { delimiters };
 }
 
-export function useBem(block: string, namespaceOverrides?: Ref<string>) {
+export function useBem(
+  block: string,
+  namespaceOverrides?: BemNamespaceOverrides,
+) {
   if (typeof block !== 'string' || block.length === 0) {
     throw new Error(ERROR_MESSAGES.emptyBlock);
   }

@@ -12,10 +12,6 @@ export const VueBem = {
     // Provide default delimiters and BEM-method
     if (!options) {
       app.provide(DELIMITERS_INJECTION_KEY, DEFAULT_DELIMITERS);
-      app.config.globalProperties[BEM_METHOD_NAME] = (
-        element: string,
-        mods: BemModsObject,
-      ) => generateModifiersFromObject(element, mods, delimiters);
 
       return;
     }
@@ -30,11 +26,13 @@ export const VueBem = {
 
     app.provide(DELIMITERS_INJECTION_KEY, delimiters);
 
-    const bemMethod = options.methodName ?? BEM_METHOD_NAME;
+    if (options.injectGlobalMethod) {
+      const bemMethod = options.methodName ?? BEM_METHOD_NAME;
 
-    app.config.globalProperties[bemMethod] = (
-      element: string,
-      mods: BemModsObject,
-    ) => generateModifiersFromObject(element, mods, delimiters);
+      app.config.globalProperties[bemMethod] = (
+        element: string,
+        mods: BemModsObject,
+      ) => generateModifiersFromObject(element, mods, delimiters);
+    }
   },
 };
