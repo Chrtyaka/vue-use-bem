@@ -7,10 +7,14 @@ const EMPTY_SPACE = ' ';
 
 export function generateModifiersFromObject(
   element: string,
-  mods: BemModifiers,
   delimiters: BemDelimiters,
+  mods?: BemModifiers,
 ) {
   let result = element;
+
+  if (!mods) {
+    return element;
+  }
 
   Object.entries(mods).forEach(([mod, value]) => {
     const modValue = unref(value);

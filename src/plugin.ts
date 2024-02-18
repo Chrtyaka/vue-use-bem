@@ -31,8 +31,8 @@ export const VueBem = {
 
       app.config.globalProperties[bemMethod] = (
         element: string,
-        mods: BemModsObject,
-      ) => generateModifiersFromObject(element, mods, delimiters);
+        mods?: BemModsObject,
+      ) => generateModifiersFromObject(element, delimiters, mods);
     }
   },
 };

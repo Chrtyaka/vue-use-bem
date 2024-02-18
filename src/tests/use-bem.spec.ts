@@ -1,6 +1,6 @@
 import { ERROR_MESSAGES } from '../constants';
 import { useBem } from '../use-bem';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { reactive, ref } from 'vue';
 import { withSetup } from './with-setup';
 
@@ -183,6 +183,29 @@ describe('use-bem', () => {
 
       expect(element.value).toBe(
         'block__element block__element--size-large block__element--state-1',
+      );
+    });
+
+    it('should return element if no mods provided', () => {
+      const [{ bem }] = withSetup(() => useBem('block'));
+
+      expect(bem('').value).toBe('block');
+    });
+
+    it('should log warning if wrong type provided', () => {
+      const consoleWarningSpy = vi.spyOn(console, 'warn');
+
+      const mods = reactive({ size: ['wrong size'] });
+
+      const [{ bem }] = withSetup(() => useBem('block'));
+
+      //@ts-expect-error test cases with wrong type
+      const classes = bem('element', mods);
+
+      expect(classes.value).toBe('block__element');
+
+      expect(consoleWarningSpy).toHaveBeenCalledWith(
+        ERROR_MESSAGES.wrongModificatorType('block__element', 'object'),
       );
     });
   });

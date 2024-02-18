@@ -66,11 +66,11 @@ export function useBem(
   };
 
   // Empty string element type is for cases where bem function applies to block
-  const bem = (element: string | '', mods: BemModifiers) => {
+  const bem = (element: string | '', mods?: BemModifiers) => {
     const resultEl = element !== '' ? e(element) : b();
 
     return computed(() =>
-      generateModifiersFromObject(resultEl, mods, delimiters),
+      generateModifiersFromObject(resultEl, delimiters, mods),
     );
   };
 
