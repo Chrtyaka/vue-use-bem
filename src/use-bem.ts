@@ -16,6 +16,9 @@ export const NAMESPACE_INJECTION_KEY: InjectionKey<string | undefined> =
 export const DELIMITERS_INJECTION_KEY: InjectionKey<BemDelimiters> =
   Symbol('bemDelimiters');
 
+/**
+ * Returns namespace for bem generator injected by current instance
+ */
 function useNamespace(namespaceOverrides?: BemNamespaceOverrides) {
   const injectedNamespace = getCurrentInstance()
     ? inject(NAMESPACE_INJECTION_KEY)
@@ -27,7 +30,9 @@ function useNamespace(namespaceOverrides?: BemNamespaceOverrides) {
 
   return { namespace };
 }
-
+/**
+ * Returns delimiters for bem generator injected by current instance or default value
+ */
 function useDelimiters() {
   const injectedDelimiters = getCurrentInstance()
     ? inject(DELIMITERS_INJECTION_KEY)
@@ -49,17 +54,36 @@ export function useBem(
   const { namespace } = useNamespace(namespaceOverrides);
 
   const { delimiters } = useDelimiters();
-
+  /**
+   * Generate block class
+   * @returns class for block with namespace if it provided
+   */
   const b = () =>
     namespace.value
       ? `${namespace.value}${delimiters.namespace}${block}`
       : block;
-
+  /**
+   * Generate new element class
+   * @param element element name
+   * @returns string class for element inside block. example: block__element
+   */
   const e = (element: BemModBasic) => `${b()}${delimiters.element}${element}`;
 
+  /**
+   * Generate modifier for block
+   * @param modifier modifier for block
+   * @returns string class with modifier for block. example: block--modifier
+   */
   const bm = (modifier: BemModBasic) => {
     return `${b()}${delimiters.modificator}${modifier}`;
   };
+
+  /**
+   * Generate modifier class for element
+   * @param element base element
+   * @param modifier modifier for element
+   * @returns string modifier class for element. example: block__element--modifier
+   */
 
   const em = (element: string, modifier: BemModBasic) => {
     return `${e(element)}${delimiters.modificator}${modifier}`;
