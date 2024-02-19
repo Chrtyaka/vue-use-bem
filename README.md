@@ -71,5 +71,5 @@ It will compiles to
 
 ```
 
-Refer to [documentation]() for more details.
+Refer to [documentation](https://vue-use-bem.netlify.app/) for more details.
 
