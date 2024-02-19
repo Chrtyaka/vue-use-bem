@@ -66,6 +66,12 @@ export function useBem(
   };
 
   // Empty string element type is for cases where bem function applies to block
+  /**
+   * Generate classes using object with modifiers
+   * @param element base element or empty string for block
+   * @param mods object with modifiers
+   * @returns computed property with generated classes
+   */
   const bem = (element: string | '', mods?: BemModifiers) => {
     const resultEl = element !== '' ? e(element) : b();
 

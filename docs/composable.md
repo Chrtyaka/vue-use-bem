@@ -183,3 +183,44 @@ const { b, e, em } =  useBem('block')
 
 #### bem
 
+Generate modifier classes using object with multiple modifiers. Object values can be `refs` or object can be `reactive`.
+
+::: warning Modifiers object values
+
+Modifier value can only be `string`, `number`, or `boolean`. Or `refs` with the same types. All other types of values will be ignored.
+
+::: 
+
+::: code-group
+
+```vue [component.vue]
+
+<script setup lang="ts">
+import { useBem } from 'vue-use-bem';
+
+const size = ref('large')
+
+const theme = ref('dark')
+
+const { bem } =  useBem('block')
+
+const blockClasses = bem('', { size, theme })
+
+const elementClasses = bem('element', { size, large })
+
+</script>
+
+<template>
+  <div :class="blockClasses">
+    <p :class="elementClasses"></p>
+  </div>
+</template>
+
+```
+
+```html [result.html]
+  <div class="block block--size-large block--theme-dark">
+    <p class="block__element block__element--size-large block__element--theme-dark"></p>
+  </div>
+```
+:::
