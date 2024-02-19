@@ -43,6 +43,12 @@ function useDelimiters() {
   return { delimiters };
 }
 
+/**
+ * @param block BEM block
+ * @param namespaceOverrides custom namespace override
+ * @returns object with bem methods
+ */
+
 export function useBem(
   block: string,
   namespaceOverrides?: BemNamespaceOverrides,

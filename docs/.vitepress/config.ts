@@ -20,6 +20,11 @@ export default defineConfig({
           { text: 'Composable', link: '/composable' },
         ],
       },
+
+      {
+        text: 'API',
+        link: '/api',
+      },
     ],
 
     socialLinks: [
