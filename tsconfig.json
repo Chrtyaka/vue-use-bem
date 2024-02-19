@@ -15,11 +15,11 @@
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "declaration": true,
-    "declarationDir": "./dits/types",
+    "declarationDir": "./dist/types",
     "esModuleInterop": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true
   },
   "include": ["*.ts", "vitest.config.ts"],
-  "exclude": ["node_modules", "**/*.md", "**/dist"]
+  "exclude": ["node_modules", "**/*.md", "**/dist", "./vitest.config.ts"]
 }
