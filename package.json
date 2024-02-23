@@ -11,7 +11,9 @@
     "test": "vitest",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "release": "semantic-release",
+    "release:dry": "semantic-release --dry-run"
   },
   "keywords": [
     "vue",
@@ -20,10 +22,16 @@
   "author": "Slava Cherkesov",
   "license": "MIT",
   "type": "module",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "tag": "latest"
+  },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
     "@vue/test-utils": "^2.4.4",
@@ -33,6 +41,7 @@
     "prettier": "^3.1.0",
     "rollup": "^4.6.0",
     "rollup-plugin-dts": "^6.1.0",
+    "semantic-release": "^23.0.2",
     "tslib": "^2.6.2",
     "typescript": "^5.3.2",
     "vitepress": "1.0.0-rc.42",
