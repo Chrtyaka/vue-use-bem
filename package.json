@@ -1,6 +1,6 @@
 {
   "name": "vue-use-bem",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple utility for generate BEM classes",
   "scripts": {
     "lint": "eslint --ignore-path .gitignore",
