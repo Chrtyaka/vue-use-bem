@@ -26,6 +26,18 @@
     "registry": "https://registry.npmjs.org/",
     "tag": "latest"
   },
+  "files": [
+    "./dist/**/*"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "types": "./dist/index.d.ts",
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
