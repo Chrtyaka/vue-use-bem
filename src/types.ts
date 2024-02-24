@@ -31,4 +31,14 @@ export interface BemPluginOptions {
   methodName?: string;
   namespace?: string;
   delimiters?: BemDelimitersCustom;
+  hyphenate?: boolean;
 }
+
+export type BemGeneratorArgs = Required<
+  Pick<BemPluginOptions, 'hyphenate' | 'delimiters'>
+>;
+
+export type BemGeneratorFunction = (
+  element: string,
+  mods: BemModifiers,
+) => string;
