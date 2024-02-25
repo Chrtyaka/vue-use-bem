@@ -1,4 +1,4 @@
-import { generateModifiersFromObject } from './bem';
+import { createBemGenerator } from './bem';
 import {
   BemDelimiters,
   BemModBasic,
@@ -16,6 +16,9 @@ export const NAMESPACE_INJECTION_KEY: InjectionKey<string | undefined> =
 export const DELIMITERS_INJECTION_KEY: InjectionKey<BemDelimiters> =
   Symbol('bemDelimiters');
 
+export const HYPHENATE_INJECTION_KEY: InjectionKey<boolean> =
+  Symbol('bemHyphenate');
+
 /**
  * Returns namespace for bem generator injected by current instance
  */
@@ -30,6 +33,7 @@ function useNamespace(namespaceOverrides?: BemNamespaceOverrides) {
 
   return { namespace };
 }
+
 /**
  * Returns delimiters for bem generator injected by current instance or default value
  */
@@ -41,6 +45,20 @@ function useDelimiters() {
   const delimiters = injectedDelimiters || DEFAULT_DELIMITERS;
 
   return { delimiters };
+}
+
+/**
+ * @returns injected hyphenate config property or false
+ */
+
+function useHyphenate() {
+  const injectedHyphenate = getCurrentInstance()
+    ? inject(HYPHENATE_INJECTION_KEY)
+    : undefined;
+
+  const hyphenate = injectedHyphenate || false;
+
+  return { hyphenate };
 }
 
 /**
@@ -60,6 +78,9 @@ export function useBem(
   const { namespace } = useNamespace(namespaceOverrides);
 
   const { delimiters } = useDelimiters();
+
+  const { hyphenate } = useHyphenate();
+
   /**
    * Generate block class
    * @returns class for block with namespace if it provided
@@ -102,12 +123,12 @@ export function useBem(
    * @param mods object with modifiers
    * @returns computed property with generated classes
    */
-  const bem = (element: string | '', mods?: BemModifiers) => {
+  const bem = (element: string | '', mods: BemModifiers) => {
     const resultEl = element !== '' ? e(element) : b();
 
-    return computed(() =>
-      generateModifiersFromObject(resultEl, delimiters, mods),
-    );
+    const bemGenerator = createBemGenerator({ delimiters, hyphenate });
+
+    return computed(() => bemGenerator(resultEl, mods));
   };
 
   return {
