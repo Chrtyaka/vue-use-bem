@@ -10,7 +10,7 @@ export default [
         format: 'cjs',
       },
       {
-        file: './dist/index.mjs',
+        file: './dist/index.js',
         format: 'es',
       },
     ],
