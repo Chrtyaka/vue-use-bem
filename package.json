@@ -1,6 +1,9 @@
 {
   "name": "vue-use-bem",
   "version": "1.1.1",
+  "author": "Slava Cherkesov",
+  "license": "MIT",
+  "type": "module",
   "description": "A simple utility for generate BEM classes",
   "scripts": {
     "lint": "eslint --ignore-path .gitignore",
@@ -24,25 +27,26 @@
     "vue",
     "bem"
   ],
-  "author": "Slava Cherkesov",
-  "license": "MIT",
-  "type": "module",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "tag": "latest"
   },
   "files": [
-    "./dist/**/*"
+    "./dist",
+    "./LICENSE"
   ],
+  "sideEffects": false,
   "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "typings": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
     }
   },
-  "types": "./dist/index.d.ts",
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
