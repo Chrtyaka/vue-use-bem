@@ -1,6 +1,6 @@
 import { Ref, reactive } from 'vue';
 
-type BemModValue = string | number | boolean;
+export type BemModValue = string | number | boolean;
 
 export type BemNamespaceOverrides = Ref<string> | string;
 
@@ -10,9 +10,9 @@ export interface BemModsObject {
 
 export type BemModBasic = Exclude<BemModValue, boolean>;
 
-type BemModsReactive = ReturnType<typeof reactive<BemModsObject>>;
+export type BemModsReactive = ReturnType<typeof reactive<BemModsObject>>;
 
-interface BemModsWithRefs {
+export interface BemModsWithRefs {
   [key: string]: Ref<BemModValue>;
 }
 
