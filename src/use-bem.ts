@@ -128,7 +128,7 @@ export function useBem(
 
     const bemGenerator = createBemGenerator({ delimiters, hyphenate });
 
-    return computed(() => bemGenerator(resultEl, mods));
+    return unref(computed(() => bemGenerator(resultEl, mods)));
   };
 
   return {
