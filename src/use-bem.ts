@@ -24,7 +24,7 @@ export const HYPHENATE_INJECTION_KEY: InjectionKey<boolean> =
  */
 function useNamespace(namespaceOverrides?: BemNamespaceOverrides) {
   const injectedNamespace = getCurrentInstance()
-    ? inject(NAMESPACE_INJECTION_KEY)
+    ? inject(NAMESPACE_INJECTION_KEY, '')
     : undefined;
 
   const derivedNamespace = namespaceOverrides || injectedNamespace;
@@ -39,7 +39,7 @@ function useNamespace(namespaceOverrides?: BemNamespaceOverrides) {
  */
 function useDelimiters() {
   const injectedDelimiters = getCurrentInstance()
-    ? inject(DELIMITERS_INJECTION_KEY)
+    ? inject(DELIMITERS_INJECTION_KEY, DEFAULT_DELIMITERS)
     : undefined;
 
   const delimiters = injectedDelimiters || DEFAULT_DELIMITERS;
@@ -53,7 +53,7 @@ function useDelimiters() {
 
 function useHyphenate() {
   const injectedHyphenate = getCurrentInstance()
-    ? inject(HYPHENATE_INJECTION_KEY)
+    ? inject(HYPHENATE_INJECTION_KEY, false)
     : undefined;
 
   const hyphenate = injectedHyphenate || false;
