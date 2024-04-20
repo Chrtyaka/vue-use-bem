@@ -67,7 +67,7 @@ const HYPHENATE_INJECTION_KEY = Symbol('bemHyphenate');
  */
 function useNamespace(namespaceOverrides) {
     const injectedNamespace = vue.getCurrentInstance()
-        ? vue.inject(NAMESPACE_INJECTION_KEY)
+        ? vue.inject(NAMESPACE_INJECTION_KEY, '')
         : undefined;
     const derivedNamespace = namespaceOverrides || injectedNamespace;
     const namespace = vue.computed(() => vue.unref(derivedNamespace));
@@ -78,7 +78,7 @@ function useNamespace(namespaceOverrides) {
  */
 function useDelimiters() {
     const injectedDelimiters = vue.getCurrentInstance()
-        ? vue.inject(DELIMITERS_INJECTION_KEY)
+        ? vue.inject(DELIMITERS_INJECTION_KEY, DEFAULT_DELIMITERS)
         : undefined;
     const delimiters = injectedDelimiters || DEFAULT_DELIMITERS;
     return { delimiters };
@@ -88,7 +88,7 @@ function useDelimiters() {
  */
 function useHyphenate() {
     const injectedHyphenate = vue.getCurrentInstance()
-        ? vue.inject(HYPHENATE_INJECTION_KEY)
+        ? vue.inject(HYPHENATE_INJECTION_KEY, false)
         : undefined;
     const hyphenate = injectedHyphenate || false;
     return { hyphenate };
