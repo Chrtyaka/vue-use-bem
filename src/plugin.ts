@@ -16,6 +16,8 @@ export const VueBem = {
     // Provide default delimiters and BEM-method
     if (!options) {
       app.provide(DELIMITERS_INJECTION_KEY, DEFAULT_DELIMITERS);
+      app.provide(NAMESPACE_INJECTION_KEY, '');
+      app.provide(HYPHENATE_INJECTION_KEY, false);
 
       return;
     }
