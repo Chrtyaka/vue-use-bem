@@ -34,7 +34,7 @@ devDependencies:
     version: 8.54.0
   happy-dom:
     specifier: ^14.0.0
-    version: 14.11.1
+    version: 14.11.2
   lefthook:
     specifier: ^1.5.3
     version: 1.6.16
@@ -58,7 +58,7 @@ devDependencies:
     version: 1.2.3(@algolia/client-search@4.23.3)(@types/node@18.18.13)(search-insights@2.14.0)(typescript@5.3.2)
   vitest:
     specifier: ^0.34.6
-    version: 0.34.6(happy-dom@14.11.1)
+    version: 0.34.6(happy-dom@14.11.2)
   vue:
     specifier: ^3.4.19
     version: 3.4.27(typescript@5.3.2)
@@ -2764,8 +2764,8 @@ packages:
       uglify-js: 3.18.0
     dev: true
 
-  /happy-dom@14.11.1:
-    resolution: {integrity: sha512-JuaGMxD3QlQei6LdAM9mMY9am/cHa978uFbkOpjN5x83DG+QQp/NLyVV4Ru7KOjs70XYZ4KbI0TNiO81nM7uQQ==}
+  /happy-dom@14.11.2:
+    resolution: {integrity: sha512-KUrwcT2GAVIGkFev287ude3n0BGGK3BWGltlVEPE8osMbDRU4zwKfcg6jUO7HkX1tAUU+kKt2g+LycmCH0Zwsg==}
     engines: {node: '>=16.0.0'}
     dependencies:
       entities: 4.5.0
@@ -4868,7 +4868,7 @@ packages:
       - universal-cookie
     dev: true
 
-  /vitest@0.34.6(happy-dom@14.11.1):
+  /vitest@0.34.6(happy-dom@14.11.2):
     resolution: {integrity: sha512-+5CALsOvbNKnS+ZHMXtuUC7nL8/7F1F2DnHGjSsszX8zCjWSSviphCb/NuS9Nzf4Q03KyyDRBAXhF/8lffME4Q==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -4912,7 +4912,7 @@ packages:
       cac: 6.7.14
       chai: 4.3.10
       debug: 4.3.4
-      happy-dom: 14.11.1
+      happy-dom: 14.11.2
       local-pkg: 0.4.3
       magic-string: 0.30.5
       pathe: 1.1.1
