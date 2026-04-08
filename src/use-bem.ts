@@ -123,7 +123,7 @@ export function useBem(
    * @param mods object with modifiers
    * @returns computed property with generated classes
    */
-  const bem = (element: string | '', mods: BemModifiers) => {
+  const bem = (element: string | '', mods?: BemModifiers) => {
     const resultEl = element !== '' ? e(element) : b();
 
     const bemGenerator = createBemGenerator({ delimiters, hyphenate });
