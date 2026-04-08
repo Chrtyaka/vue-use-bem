@@ -13,5 +13,5 @@ export declare function useBem(block: string, namespaceOverrides?: BemNamespaceO
     bm: (modifier: BemModBasic) => string;
     e: (element: BemModBasic) => string;
     em: (element: string, modifier: BemModBasic) => string;
-    bem: (element: string | '', mods: BemModifiers) => import("vue").ComputedRef<string>;
+    bem: (element: string | "", mods?: BemModifiers) => import("vue").ComputedRef<string>;
 };

@@ -10,7 +10,7 @@ const DEFAULT_DELIMITERS = {
 };
 const ERROR_MESSAGES = {
     emptyBlock: '[vue-use-bem]: Block is not specified',
-    wrongModificatorType: (element, value) => `[vue-bem-cn]: Invalid modificator value type: ${typeof value} for element ${element}`,
+    wrongModificatorType: (element, type) => `[vue-use-bem]: Invalid modificator value type: ${type} for element ${element}`,
 };
 const BEM_METHOD_NAME = 'b';
 
@@ -48,7 +48,7 @@ function createBemGenerator(config) {
                     result += `${EMPTY_SPACE}${element}${delimiters.modificator}${mod}${delimiters.modificatorValue}${modValue}`;
                     break;
                 default: {
-                    console.warn(ERROR_MESSAGES.wrongModificatorType(element, typeof value));
+                    console.warn(ERROR_MESSAGES.wrongModificatorType(element, typeof modValue));
                     // @ts-expect-error setup exhaustiveCheck
                     const exhaustiveCheck = typeof modValue;
                     return exhaustiveCheck;
