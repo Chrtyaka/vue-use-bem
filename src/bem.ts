@@ -14,7 +14,7 @@ const EMPTY_SPACE = ' ';
 export function createBemGenerator(
   config: BemGeneratorArgs,
 ): BemGeneratorFunction {
-  return (element: string, mods: BemModifiers) => {
+  return (element: string, mods?: BemModifiers) => {
     let result = element;
 
     if (!mods) {
@@ -42,7 +42,7 @@ export function createBemGenerator(
           break;
         default: {
           console.warn(
-            ERROR_MESSAGES.wrongModificatorType(element, typeof value),
+            ERROR_MESSAGES.wrongModificatorType(element, typeof modValue),
           );
           // @ts-expect-error setup exhaustiveCheck
           const exhaustiveCheck: never = typeof modValue;

@@ -9,8 +9,8 @@ export const DEFAULT_DELIMITERS: BemDelimiters = {
 
 export const ERROR_MESSAGES = {
   emptyBlock: '[vue-use-bem]: Block is not specified',
-  wrongModificatorType: (element: string, value: unknown) =>
-    `[vue-bem-cn]: Invalid modificator value type: ${typeof value} for element ${element}`,
+  wrongModificatorType: (element: string, type: string) =>
+    `[vue-use-bem]: Invalid modificator value type: ${type} for element ${element}`,
 };
 
 export const BEM_METHOD_NAME = 'b';
