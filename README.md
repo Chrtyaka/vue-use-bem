@@ -4,10 +4,9 @@
 
 <p align="center">VueUseBem - Vue.js 3 BEM classes generator</p>
 
-
 # Description
 
-This project is simple [BEM](https://getbem.com/)-style classnames generator for Vue.js 3. 
+This project is simple [BEM](https://getbem.com/)-style classnames generator for Vue.js 3.
 
 - 💪 Vue 3 Composition API
 - 🔥 Written in TypeScript
@@ -24,8 +23,8 @@ Button.vue
 
 ```vue
 <template>
-  <button :class="[b(), bm(size)]"> 
-    <slot /> 
+  <button :class="[b(), bm(size)]">
+    <slot />
   </button>
 </template>
 
@@ -34,43 +33,38 @@ import { useBem } from 'vue-use-bem';
 
 const props = defineProps({
   size: {
-    type: String
-  }
-})
+    type: String,
+  },
+});
 
-const { b, bm } = useBem('ui-button')
-
+const { b, bm } = useBem('ui-button');
 </script>
 ```
+
 Page.vue
 
 ```vue
-
 <template>
   <div class="example">
-    <ui-button type="button" class="mix-any-class" size="large"> 
-      I am BEM button! 
+    <ui-button type="button" class="mix-any-class" size="large">
+      I am BEM button!
     </ui-button>
   </div>
 </template>
 
-
 <script lang="ts" setup>
-  import UiButton from 'components/UI/Button.vue';
+import UiButton from 'components/UI/Button.vue';
 </script>
 ```
 
 It will compiles to
 
 ```html
-
 <div class="example">
- <button class="mix-any-class button button--size-large" type="button">  
-      I am BEM button!
- </button>
+  <button class="mix-any-class button button--size-large" type="button">
+    I am BEM button!
+  </button>
 </div>
-
 ```
 
 Refer to [documentation](https://vue-use-bem.netlify.app/) for more details.
-

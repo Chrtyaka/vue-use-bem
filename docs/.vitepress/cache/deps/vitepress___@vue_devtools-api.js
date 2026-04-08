@@ -9,7 +9,7 @@ var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __esm = (fn, res) =>
   function __init() {
-    return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])((fn = 0))), res;
+    return (fn && (res = (0, fn[__getOwnPropNames(fn)[0]])((fn = 0))), res);
   };
 var __commonJS = (cb, mod) =>
   function __require() {
@@ -542,7 +542,7 @@ var __getProtoOf2 = Object.getPrototypeOf;
 var __hasOwnProp2 = Object.prototype.hasOwnProperty;
 var __esm2 = (fn, res) =>
   function __init() {
-    return fn && (res = (0, fn[__getOwnPropNames2(fn)[0]])((fn = 0))), res;
+    return (fn && (res = (0, fn[__getOwnPropNames2(fn)[0]])((fn = 0))), res);
   };
 var __commonJS2 = (cb, mod) =>
   function __require() {

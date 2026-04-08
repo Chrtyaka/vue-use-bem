@@ -9,19 +9,18 @@ VueUseBem provides `useBem` composable function. Simple example:
 import { useBem } from 'vue-use-bem';
 
 const { b, bm, e, em } = useBem('block');
-
 </script>
 
 <template>
   <div :class="[b(), bm('lg')]">
-    <p :class="[e('element'), e('element', 'dark')]"> 
-      Some element 
-    </p>
-    <p :class="e('element2')"> Some element 2 </p>
+    <p :class="[e('element'), e('element', 'dark')]">Some element</p>
+    <p :class="e('element2')">Some element 2</p>
   </div>
 </template>
 ```
+
 Step by step explanation:
+
 - `b()` generate class `block`
 - `bm('lg')` - generate modifier class for block -- `block--lg`
 - `e('element')` - generate class for element -- `block__element`
@@ -31,17 +30,13 @@ Step by step explanation:
 Result HTML:
 
 ```html
- <div class="block block--lg">
-    <p class="block__element block__element--dark"> 
-      Some element 
-    </p>
-    <p class="block__element2"> Some element 2 </p>
-  </div>
+<div class="block block--lg">
+  <p class="block__element block__element--dark">Some element</p>
+  <p class="block__element2">Some element 2</p>
+</div>
 ```
 
 ## Namespace
-
-
 
 ## Methods
 
@@ -49,7 +44,7 @@ Result HTML:
 
 Composable function catch delimiters provided via [plugin configuration](./configuration.md)
 
-::: 
+:::
 
 ### Non reactive
 
@@ -68,24 +63,19 @@ Generate class for block. Usage:
 ::: code-group
 
 ```vue [component.vue]
-
 <script setup lang="ts">
 import { useBem } from 'vue-use-bem';
 
-const { b } =  useBem('block')
-
+const { b } = useBem('block');
 </script>
 
 <template>
-  <div :class="b()">
-  </div>
+  <div :class="b()"></div>
 </template>
-
 ```
 
 ```html [result.html]
-  <div class="block">
-  </div>
+<div class="block"></div>
 ```
 
 :::
@@ -97,23 +87,19 @@ Generate modifier for block. Usage:
 ::: code-group
 
 ```vue [component.vue]
-
 <script setup lang="ts">
 import { useBem } from 'vue-use-bem';
 
-const { b } =  useBem('block')
-
+const { b } = useBem('block');
 </script>
 
 <template>
-  <div :class="[b(), bm('lg')]">
-  </div>
+  <div :class="[b(), bm('lg')]"></div>
 </template>
-
 ```
 
 ```html [result.html]
-  <div class="block block--lg"></div>
+<div class="block block--lg"></div>
 ```
 
 :::
@@ -125,12 +111,10 @@ Generate class for element inside block. Usage
 ::: code-group
 
 ```vue [component.vue]
-
 <script setup lang="ts">
 import { useBem } from 'vue-use-bem';
 
-const { b, e } =  useBem('block')
-
+const { b, e } = useBem('block');
 </script>
 
 <template>
@@ -138,14 +122,14 @@ const { b, e } =  useBem('block')
     <p :class="e('element')"></p>
   </div>
 </template>
-
 ```
 
 ```html [result.html]
-  <div class="block">
-    <p class="block__element"></p>
-  </div>
+<div class="block">
+  <p class="block__element"></p>
+</div>
 ```
+
 :::
 
 #### `e`
@@ -155,12 +139,10 @@ Generate modifier class for element inside block. Usage
 ::: code-group
 
 ```vue [component.vue]
-
 <script setup lang="ts">
 import { useBem } from 'vue-use-bem';
 
-const { b, e, em } =  useBem('block')
-
+const { b, e, em } = useBem('block');
 </script>
 
 <template>
@@ -168,16 +150,15 @@ const { b, e, em } =  useBem('block')
     <p :class="[e('element'), em('element', 'lg')]"></p>
   </div>
 </template>
-
 ```
 
 ```html [result.html]
-  <div class="block">
-    <p class="block__element block__element--lg"></p>
-  </div>
+<div class="block">
+  <p class="block__element block__element--lg"></p>
+</div>
 ```
-:::
 
+:::
 
 ### Reactive
 
@@ -189,25 +170,23 @@ Generate modifier classes using object with multiple modifiers. Object values ca
 
 Modifier value can only be `string`, `number`, or `boolean`. Or `refs` with the same types. All other types of values will be ignored.
 
-::: 
+:::
 
 ::: code-group
 
 ```vue [component.vue]
-
 <script setup lang="ts">
 import { useBem } from 'vue-use-bem';
 
-const size = ref('large')
+const size = ref('large');
 
-const theme = ref('dark')
+const theme = ref('dark');
 
-const { bem } =  useBem('block')
+const { bem } = useBem('block');
 
-const blockClasses = bem('', { size, theme })
+const blockClasses = bem('', { size, theme });
 
-const elementClasses = bem('element', { size, large })
-
+const elementClasses = bem('element', { size, large });
 </script>
 
 <template>
@@ -215,12 +194,14 @@ const elementClasses = bem('element', { size, large })
     <p :class="elementClasses"></p>
   </div>
 </template>
-
 ```
 
 ```html [result.html]
-  <div class="block block--size-large block--theme-dark">
-    <p class="block__element block__element--size-large block__element--theme-dark"></p>
-  </div>
+<div class="block block--size-large block--theme-dark">
+  <p
+    class="block__element block__element--size-large block__element--theme-dark"
+  ></p>
+</div>
 ```
+
 :::
