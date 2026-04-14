@@ -54,7 +54,7 @@
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/git": "10.0.1",
     "@vue/test-utils": "2.4.6",
-    "happy-dom": "20.8.9",
+    "happy-dom": "20.9.0",
     "lefthook": "2.1.5",
     "oxfmt": "0.44.0",
     "oxlint": "1.59.0",
