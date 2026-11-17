@@ -31,7 +31,8 @@
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
-    "tag": "latest"
+    "tag": "latest",
+    "provenance": true
   },
   "files": [
     "dist",
