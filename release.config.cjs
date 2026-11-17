@@ -9,6 +9,7 @@ module.exports = {
       {
         preset: 'conventionalcommits',
         releaseRules: [
+          { breaking: true, release: 'major' },
           { type: 'docs', scope: 'README', release: 'patch' },
           { type: 'refactor', release: 'minor' },
           { type: 'feat', release: 'minor' },
@@ -39,7 +40,6 @@ module.exports = {
     [
       '@semantic-release/github',
       {
-        // GitHub rejects the default `semantic-release` label on fail issues
         labels: false,
         assets: [
           { path: 'dist/index.cjs', label: 'JS distribution -- Common' },
