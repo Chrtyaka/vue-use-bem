@@ -40,5 +40,5 @@ export type BemGeneratorArgs = Required<
 
 export type BemGeneratorFunction = (
   element: string,
-  mods: BemModifiers,
+  mods?: BemModifiers,
 ) => string;
