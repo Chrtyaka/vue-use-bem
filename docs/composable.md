@@ -164,13 +164,28 @@ const { b, e, em } = useBem('block');
 
 #### bem
 
-Generate modifier classes using object with multiple modifiers. Object values can be `refs` or object can be `reactive`.
+Generate modifier classes using object with multiple modifiers. Returns `ComputedRef<string>`.
 
-::: warning Modifiers object values
+Accepted inputs:
 
-Modifier value can only be `string`, `number`, or `boolean`. Or `refs` with the same types. All other types of values will be ignored.
+- modifiers object: plain, `reactive`, `ref`, `computed` or getter `() => ({...})`
+- each value: `string`, `number`, `boolean`, `ref` or getter of those
 
-:::
+Value rules:
+
+- `true` → `block--mod`, `false` → skipped
+- `'large'` → `block--mod-large`, `''` → skipped
+- `1` → `block--mod-1`
+- `null` / `undefined` → skipped silently (handy for optional props)
+- any other type → skipped with `console.warn`
+
+Call with element name, or pass modifiers directly to target the block:
+
+```ts
+bem('element', mods); // block__element ...
+bem(mods); // block ...
+bem('', mods); // same as above
+```
 
 ::: code-group
 
@@ -178,15 +193,15 @@ Modifier value can only be `string`, `number`, or `boolean`. Or `refs` with the 
 <script setup lang="ts">
 import { useBem } from 'vue-use-bem';
 
-const size = ref('large');
+const props = defineProps<{ size?: string }>();
 
 const theme = ref('dark');
 
 const { bem } = useBem('block');
 
-const blockClasses = bem('', { size, theme });
+const blockClasses = bem({ size: () => props.size, theme });
 
-const elementClasses = bem('element', { size, large });
+const elementClasses = bem('element', { size, theme });
 </script>
 
 <template>

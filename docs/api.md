@@ -8,6 +8,7 @@ export interface BemPluginOptions {
   methodName?: string; // global method name
   namespace?: string; // global namespace
   delimiters?: BemDelimitersCustom; // custom delimiters for generator
+  hyphenate?: boolean; // convert generated classes from camelCase to kebab-case
 }
 
 export interface BemDelimiters {
@@ -23,17 +24,13 @@ export type BemDelimitersCustom = Partial<BemDelimiters>;
 ## useBem
 
 ```ts
-type BemModValue = string | number | boolean;
+type BemModValue = string | number | boolean | null | undefined;
 type BemNamespaceOverrides = Ref<string> | string;
 interface BemModsObject {
-  [key: string]: BemModValue;
+  [key: string]: MaybeRefOrGetter<BemModValue>;
 }
-type BemModBasic = Exclude<BemModValue, boolean>;
-type BemModsReactive = ReturnType<typeof reactive<BemModsObject>>;
-interface BemModsWithRefs {
-  [key: string]: Ref<BemModValue>;
-}
-type BemModifiers = BemModsObject | BemModsReactive | BemModsWithRefs;
+type BemModBasic = string | number;
+type BemModifiers = MaybeRefOrGetter<BemModsObject>;
 
 /**
  * @param block BEM block
@@ -48,6 +45,9 @@ declare function useBem(
   bm: (modifier: BemModBasic) => string;
   e: (element: BemModBasic) => string;
   em: (element: string, modifier: BemModBasic) => string;
-  bem: (element: string | '', mods?: BemModifiers) => vue.ComputedRef<string>;
+  bem: {
+    (mods?: BemModifiers): ComputedRef<string>;
+    (element: string, mods?: BemModifiers): ComputedRef<string>;
+  };
 };
 ```

@@ -1,22 +1,25 @@
-import { Ref, reactive } from 'vue';
+import type { MaybeRefOrGetter, Ref, reactive } from 'vue';
 
-export type BemModValue = string | number | boolean;
+export type BemModValue = string | number | boolean | null | undefined;
 
 export type BemNamespaceOverrides = Ref<string> | string;
 
 export interface BemModsObject {
-  [key: string]: BemModValue;
+  [key: string]: MaybeRefOrGetter<BemModValue>;
 }
 
-export type BemModBasic = Exclude<BemModValue, boolean>;
+export type BemModBasic = Exclude<BemModValue, boolean | null | undefined>;
 
+/** @deprecated use BemModsObject */
 export type BemModsReactive = ReturnType<typeof reactive<BemModsObject>>;
 
+/** @deprecated use BemModsObject */
 export interface BemModsWithRefs {
   [key: string]: Ref<BemModValue>;
 }
 
-export type BemModifiers = BemModsObject | BemModsReactive | BemModsWithRefs;
+export type BemModifiers = MaybeRefOrGetter<BemModsObject>;
+
 export interface BemDelimiters {
   namespace: string;
   element: string;

@@ -7,7 +7,7 @@ import {
 } from './types';
 import { computed, inject, getCurrentInstance, unref } from 'vue';
 
-import type { InjectionKey } from 'vue';
+import type { ComputedRef, InjectionKey } from 'vue';
 import { DEFAULT_DELIMITERS, ERROR_MESSAGES } from './constants';
 
 export const NAMESPACE_INJECTION_KEY: InjectionKey<string | undefined> =
@@ -116,20 +116,29 @@ export function useBem(
     return `${e(element)}${delimiters.modificator}${modifier}`;
   };
 
-  // Empty string element type is for cases where bem function applies to block
+  const bemGenerator = createBemGenerator({ delimiters, hyphenate });
+
   /**
    * Generate classes using object with modifiers
-   * @param element base element or empty string for block
+   * @param element base element, or empty string / modifiers object for block
    * @param mods object with modifiers
    * @returns computed property with generated classes
    */
-  const bem = (element: string | '', mods?: BemModifiers) => {
+  function bem(mods?: BemModifiers): ComputedRef<string>;
+  function bem(element: string, mods?: BemModifiers): ComputedRef<string>;
+  function bem(
+    elementOrMods?: string | BemModifiers,
+    mods?: BemModifiers,
+  ): ComputedRef<string> {
+    const isElement = typeof elementOrMods === 'string';
+
+    const element = isElement ? elementOrMods : '';
+    const modifiers = isElement ? mods : elementOrMods;
+
     const resultEl = element !== '' ? e(element) : b();
 
-    const bemGenerator = createBemGenerator({ delimiters, hyphenate });
-
-    return computed(() => bemGenerator(resultEl, mods));
-  };
+    return computed(() => bemGenerator(resultEl, modifiers));
+  }
 
   return {
     b,

@@ -7,50 +7,51 @@ import type {
 
 import { camelToKebabCase } from './hyphenate';
 
-import { unref } from 'vue';
-
-const EMPTY_SPACE = ' ';
+import { toValue } from 'vue';
 
 export function createBemGenerator(
   config: BemGeneratorArgs,
 ): BemGeneratorFunction {
-  return (element: string, mods?: BemModifiers) => {
-    let result = element;
+  const { delimiters, hyphenate } = config;
 
-    if (!mods) {
-      return element;
+  return (element: string, mods?: BemModifiers) => {
+    const modsValue = toValue(mods);
+
+    if (!modsValue) {
+      return hyphenate ? camelToKebabCase(element) : element;
     }
 
-    const { delimiters, hyphenate } = config;
+    const classes = [element];
 
-    Object.entries(mods).forEach(([mod, value]) => {
-      const modValue = unref(value);
+    for (const [mod, raw] of Object.entries(modsValue)) {
+      const value = toValue(raw);
 
-      switch (typeof modValue) {
+      if (value === null || value === undefined || value === false) {
+        continue;
+      }
+
+      const base = `${element}${delimiters.modificator}${mod}`;
+
+      switch (typeof value) {
         case 'boolean':
-          result += modValue
-            ? `${EMPTY_SPACE}${element}${delimiters.modificator}${mod}`
-            : '';
+          classes.push(base);
           break;
         case 'string':
-          result += modValue.length
-            ? `${EMPTY_SPACE}${element}${delimiters.modificator}${mod}${delimiters.modificatorValue}${modValue}`
-            : '';
+          if (value.length) {
+            classes.push(`${base}${delimiters.modificatorValue}${value}`);
+          }
           break;
         case 'number':
-          result += `${EMPTY_SPACE}${element}${delimiters.modificator}${mod}${delimiters.modificatorValue}${modValue}`;
+          classes.push(`${base}${delimiters.modificatorValue}${value}`);
           break;
-        default: {
+        default:
           console.warn(
-            ERROR_MESSAGES.wrongModificatorType(element, typeof modValue),
+            ERROR_MESSAGES.wrongModificatorType(element, typeof value),
           );
-          // @ts-expect-error setup exhaustiveCheck
-          const exhaustiveCheck: never = typeof modValue;
-
-          return exhaustiveCheck;
-        }
       }
-    });
+    }
+
+    const result = classes.join(' ');
 
     return hyphenate ? camelToKebabCase(result) : result;
   };

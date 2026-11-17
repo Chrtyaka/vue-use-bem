@@ -1,7 +1,7 @@
 import { ERROR_MESSAGES } from '../constants';
 import { useBem } from '../use-bem';
 import { describe, it, expect, vi } from 'vitest';
-import { reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { withSetup } from './with-setup';
 
 describe('use-bem', () => {
@@ -184,6 +184,81 @@ describe('use-bem', () => {
       expect(element.value).toBe(
         'block__element block__element--size-large block__element--state-1',
       );
+    });
+
+    describe('nullish modifier values', () => {
+      it('skips undefined and null without warning', () => {
+        const consoleWarningSpy = vi.spyOn(console, 'warn');
+        consoleWarningSpy.mockClear();
+
+        const [{ bem }] = withSetup(() => useBem('block'));
+
+        const element = bem('element', { size: undefined, dark: null });
+
+        expect(element.value).toBe('block__element');
+        expect(consoleWarningSpy).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('getters and computed as modifier values', () => {
+      it('accepts getter function as value', () => {
+        const [{ bem }] = withSetup(() => useBem('block'));
+
+        const size = ref('large');
+
+        const element = bem('element', { size: () => size.value });
+
+        expect(element.value).toBe('block__element block__element--size-large');
+
+        size.value = 'small';
+
+        expect(element.value).toBe('block__element block__element--size-small');
+      });
+
+      it('accepts computed as whole modifiers object', () => {
+        const [{ bem }] = withSetup(() => useBem('block'));
+
+        const dark = ref(false);
+        const mods = computed(() => ({ dark: dark.value }));
+
+        const element = bem('element', mods);
+
+        expect(element.value).toBe('block__element');
+
+        dark.value = true;
+
+        expect(element.value).toBe('block__element block__element--dark');
+      });
+
+      it('accepts getter as whole modifiers object', () => {
+        const [{ bem }] = withSetup(() => useBem('block'));
+
+        const size = ref(1);
+
+        const element = bem('element', () => ({ size: size.value }));
+
+        expect(element.value).toBe('block__element block__element--size-1');
+      });
+    });
+
+    describe('bem(mods) shorthand for block', () => {
+      it('applies modifiers to block when first arg is object', () => {
+        const [{ bem }] = withSetup(() => useBem('block'));
+
+        const element = bem({ size: 'large', dark: true });
+
+        expect(element.value).toBe('block block--size-large block--dark');
+      });
+
+      it('applies modifiers to block when first arg is ref', () => {
+        const [{ bem }] = withSetup(() => useBem('block'));
+
+        const mods = ref({ dark: true });
+
+        const element = bem(mods);
+
+        expect(element.value).toBe('block block--dark');
+      });
     });
 
     it('should return element if no mods provided', () => {

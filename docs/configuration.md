@@ -100,8 +100,24 @@ And then use your custom method in templates:
 
 ```vue
 <template>
-  <div :class="bem()"></div>
+  <div :class="bem('block', { dark: true })"></div>
 </template>
+```
+
+### Typing the global method
+
+Global method name is dynamic, so the package does not augment Vue types for you. Add a declaration in your project (e.g. `src/vue-use-bem.d.ts`):
+
+```ts
+import type { BemGeneratorFunction } from 'vue-use-bem';
+
+declare module 'vue' {
+  interface ComponentCustomProperties {
+    bem: BemGeneratorFunction; // use your methodName here, default is `b`
+  }
+}
+
+export {};
 ```
 
 ## Delimiters
