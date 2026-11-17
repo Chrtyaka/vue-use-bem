@@ -5,6 +5,7 @@ export const DEFAULT_DELIMITERS: BemDelimiters = {
   element: '__',
   modificator: '--',
   modificatorValue: '-',
+  state: 'is-',
 };
 
 export const ERROR_MESSAGES = {

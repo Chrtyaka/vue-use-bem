@@ -160,6 +160,33 @@ const { b, e, em } = useBem('block');
 
 :::
 
+#### `is`
+
+Generate state class with `is-` prefix (configurable via `delimiters.state`). Second argument toggles the class: `false` returns empty string. Accepts plain boolean, `ref` or getter.
+
+::: code-group
+
+```vue [component.vue]
+<script setup lang="ts">
+import { useBem } from 'vue-use-bem';
+
+const props = defineProps<{ active?: boolean; disabled?: boolean }>();
+
+const { b, is } = useBem('block');
+</script>
+
+<template>
+  <div :class="[b(), is('active', props.active), is('disabled', () => props.disabled)]"></div>
+</template>
+```
+
+```html [result.html]
+<!-- active: true, disabled: false -->
+<div class="block is-active"></div>
+```
+
+:::
+
 ### Reactive
 
 #### bem

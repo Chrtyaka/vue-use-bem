@@ -130,6 +130,7 @@ const delimiters = {
   element: '__', // block__element
   modificator: '--', // element--modificator
   modificatorValue: '-', // element--modificator-value
+  state: 'is-', // is-active (see `is()` helper)
 };
 ```
 

@@ -67,6 +67,27 @@ describe('use-bem', () => {
 
       expect(em('element', 'modifier')).toBe('block__element--modifier');
     });
+    it('test is-state helper', () => {
+      const [{ is }] = withSetup(() => useBem('block'));
+
+      expect(is('active')).toBe('is-active');
+      expect(is('active', true)).toBe('is-active');
+      expect(is('active', false)).toBe('');
+    });
+
+    it('is-state accepts ref and getter', () => {
+      const [{ is }] = withSetup(() => useBem('block'));
+
+      const active = ref(false);
+
+      expect(is('active', active)).toBe('');
+      expect(is('active', () => active.value)).toBe('');
+
+      active.value = true;
+
+      expect(is('active', active)).toBe('is-active');
+      expect(is('active', () => active.value)).toBe('is-active');
+    });
   });
 
   describe('test bem function', () => {
@@ -310,6 +331,14 @@ describe('use-bem', () => {
       });
 
       expect(bm('modifier')).toBe('block&&modifier');
+    });
+
+    it('should provide custom state prefix', () => {
+      const [{ is }] = withSetup(() => useBem('block'), {
+        delimiters: { state: 'has-' },
+      });
+
+      expect(is('error')).toBe('has-error');
     });
   });
 });

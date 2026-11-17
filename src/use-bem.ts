@@ -5,9 +5,9 @@ import {
   BemModifiers,
   BemNamespaceOverrides,
 } from './types';
-import { computed, inject, getCurrentInstance, unref } from 'vue';
+import { computed, inject, getCurrentInstance, toValue, unref } from 'vue';
 
-import type { ComputedRef, InjectionKey } from 'vue';
+import type { ComputedRef, InjectionKey, MaybeRefOrGetter } from 'vue';
 import { DEFAULT_DELIMITERS, ERROR_MESSAGES } from './constants';
 
 export const NAMESPACE_INJECTION_KEY: InjectionKey<string | undefined> =
@@ -116,6 +116,15 @@ export function useBem(
     return `${e(element)}${delimiters.modificator}${modifier}`;
   };
 
+  /**
+   * Generate state class, e.g. `is-active`
+   * @param name state name
+   * @param state when false, returns empty string
+   * @returns string state class or empty string
+   */
+  const is = (name: string, state: MaybeRefOrGetter<boolean> = true) =>
+    toValue(state) ? `${delimiters.state}${name}` : '';
+
   const bemGenerator = createBemGenerator({ delimiters, hyphenate });
 
   /**
@@ -145,6 +154,7 @@ export function useBem(
     bm,
     e,
     em,
+    is,
     bem,
   };
 }

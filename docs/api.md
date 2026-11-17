@@ -16,6 +16,7 @@ export interface BemDelimiters {
   element: string;
   modificator: string;
   modificatorValue: string;
+  state: string; // prefix for is() classes, default 'is-'
 }
 
 export type BemDelimitersCustom = Partial<BemDelimiters>;
@@ -45,6 +46,7 @@ declare function useBem(
   bm: (modifier: BemModBasic) => string;
   e: (element: BemModBasic) => string;
   em: (element: string, modifier: BemModBasic) => string;
+  is: (name: string, state?: MaybeRefOrGetter<boolean>) => string;
   bem: {
     (mods?: BemModifiers): ComputedRef<string>;
     (element: string, mods?: BemModifiers): ComputedRef<string>;
