@@ -9,8 +9,6 @@ module.exports = {
       {
         preset: 'conventionalcommits',
         releaseRules: [
-          // custom rules replace the defaults entirely, so the breaking
-          // rule must be listed here or BREAKING CHANGE notes are ignored
           { breaking: true, release: 'major' },
           { type: 'docs', scope: 'README', release: 'patch' },
           { type: 'refactor', release: 'minor' },
@@ -42,7 +40,6 @@ module.exports = {
     [
       '@semantic-release/github',
       {
-        // GitHub rejects the default `semantic-release` label on fail issues
         labels: false,
         assets: [
           { path: 'dist/index.cjs', label: 'JS distribution -- Common' },
