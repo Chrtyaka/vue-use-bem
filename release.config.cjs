@@ -39,6 +39,8 @@ module.exports = {
     [
       '@semantic-release/github',
       {
+        // GitHub rejects the default `semantic-release` label on fail issues
+        labels: false,
         assets: [
           { path: 'dist/index.cjs', label: 'JS distribution -- Common' },
           { path: 'dist/index.js', label: 'JS distribution -- ESM' },
