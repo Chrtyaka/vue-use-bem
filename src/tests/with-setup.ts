@@ -7,7 +7,7 @@ export function withSetup<T>(
   composable: () => T,
   pluginOptions?: BemPluginOptions,
 ): [T, App] {
-  let result: T;
+  let result!: T;
   const app = createApp({
     setup() {
       result = composable();

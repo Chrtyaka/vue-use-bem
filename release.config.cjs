@@ -41,7 +41,7 @@ module.exports = {
       {
         assets: [
           { path: 'dist/index.cjs', label: 'JS distribution -- Common' },
-          { path: 'dist/index.mjs', label: 'JS distribution -- ESM' },
+          { path: 'dist/index.js', label: 'JS distribution -- ESM' },
           {
             path: 'dist/index.d.ts',
             label: 'Types',
@@ -53,7 +53,11 @@ module.exports = {
     [
       '@semantic-release/git',
       {
-        assets: ['dist/**/*.{cjs,mjs,d.ts}', 'CHANGELOG.md', 'package.json'],
+        assets: [
+          'dist/**/*.{cjs,js,d.ts,d.cts}',
+          'CHANGELOG.md',
+          'package.json',
+        ],
         message:
           'chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
       },
