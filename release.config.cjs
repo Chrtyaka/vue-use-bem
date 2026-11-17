@@ -9,6 +9,9 @@ module.exports = {
       {
         preset: 'conventionalcommits',
         releaseRules: [
+          // custom rules replace the defaults entirely, so the breaking
+          // rule must be listed here or BREAKING CHANGE notes are ignored
+          { breaking: true, release: 'major' },
           { type: 'docs', scope: 'README', release: 'patch' },
           { type: 'refactor', release: 'minor' },
           { type: 'feat', release: 'minor' },
