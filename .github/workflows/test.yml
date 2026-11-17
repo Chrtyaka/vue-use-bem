@@ -34,6 +34,7 @@ jobs:
       - run: pnpm install
       - run: pnpm lint
       - run: pnpm format
+      - run: pnpm typecheck
 
   test:
     name: Unit Tests
@@ -61,3 +62,31 @@ jobs:
 
       - run: pnpm install
       - run: pnpm test
+
+  build:
+    name: Build & Package Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - name: Get pnpm store directory
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-
+
+      - run: pnpm install
+      - run: pnpm build
+      - run: pnpm check
